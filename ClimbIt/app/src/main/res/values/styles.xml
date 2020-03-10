@@ -8,6 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="BackgroundHeaderDimensions">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">222dp</item>
+    </style>
+
     <!-- Text Style for headers. -->
     <style name="headerText">
         <item name="android:textSize">33sp</item>
