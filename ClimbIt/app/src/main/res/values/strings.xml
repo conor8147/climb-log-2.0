@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">ClimbIt</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="default_project_text">Rubble</string>
+    <string name="projects_title">Projects</string>
+    <string name="add_button_description">Add Button</string>
+    <string name="search_button_description">Search Button</string>
+    <string name="filter_button_description">Filter Button</string>
+    <string name="add_project">Add Project</string>
+    <string name="done">Done</string>
+    <string name="name">Name...</string>
+    <string name="grade">Grade...</string>
+</resources>

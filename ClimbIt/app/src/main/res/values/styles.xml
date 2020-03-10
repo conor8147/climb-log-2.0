@@ -1,0 +1,49 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- Text Style for headers. -->
+    <style name="headerText">
+        <item name="android:textSize">33sp</item>
+        <item name="android:font">@font/sf_pro_semibold</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <!-- Text Style for project cards route names. -->
+    <style name="projectCardText">
+        <item name="android:textSize">18sp</item>
+        <item name="android:font">@font/sf_pro_semibold</item>
+        <item name="android:textColor">@color/blueGreyText</item>
+    </style>
+
+    <!-- Text Style for grades on project and logbook cards. -->
+    <style name="gradeText">
+        <item name="android:textSize">28sp</item>
+        <item name="android:font">@font/sf_pro_semibold</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <!-- Text style for minor headings -->
+    <style name="minorHeaderText">
+        <item name="android:textSize">28sp</item>
+        <item name="android:font">@font/sf_pro_semibold</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <!-- Text style for buttons -->
+    <style name="buttonText">
+        <item name="android:textSize">18sp</item>
+        <item name="android:font">@font/sf_pro_semibold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+</resources>
