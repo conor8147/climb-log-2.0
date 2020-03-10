@@ -1,9 +1,12 @@
 package com.coneill.climbit.model
 
-import org.json.JSONObject
-
+/**
+ * Non-persistent data storage for ClimbIt.
+ */
 class Singleton {
     companion object {
+
+        // Mutable list of projects on the users project board.
         val projects = mutableListOf(
             Project("Moonshine", "23", "Mangaokewa"),
             Project("Rubble", "27", "The Cave"),

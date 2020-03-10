@@ -7,13 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.coneill.climbit.model.Singleton
 
 import com.example.climbit.R
 
 /**
- * Class for the dialog used to add climb to the projects board
+ * Class for the dialog used to add a climb to the projects board
  */
 class AddProjectDialog : DialogFragment() {
 
@@ -49,32 +50,37 @@ class AddProjectDialog : DialogFragment() {
         val name = nameEditText.text.toString()
         val grade = gradeEditText.text.toString()
 
-        if (isNameCorrectFormat(name) && isGradeCorrectFormat(grade)) {
+        return if (!isGradeCorrectFormat(grade)) {
+            Toast.makeText(context, "Invalid grade format.", Toast.LENGTH_LONG).show()
+            false
+        } else if (!isNameCorrectFormat(name)) {
+            Toast.makeText(context, "Name is too long.", Toast.LENGTH_LONG).show()
+            false
+        } else {
             Singleton.addProject(
                 name,
                 grade
             )
             listener?.onProjectAdded()
-            return true
-        } else {
-            // TODO: make name not accepted/grade not accepted message
-            return false
+            true
         }
-
     }
 
     /**
      * Checks if the climb grade is in an acceptable format, ie integer in [0, 40]
      */
     private fun isGradeCorrectFormat(grade: String): Boolean {
-        return true
+        val intGrade = grade.toIntOrNull()
+        return intGrade != null &&
+                intGrade >= 0 &&
+                intGrade < 100
     }
 
     /**
      * Checks if the climb name is in an acceptable format.
      */
     private fun isNameCorrectFormat(name: String): Boolean {
-        return true
+        return name.length < 50
     }
 
     /**
@@ -101,11 +107,6 @@ class AddProjectDialog : DialogFragment() {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments]
-     * (http://developer.android.com/training/basics/fragments/communicating.html)
-     * for more information.
      */
     interface OnProjectAddedListener {
         fun onProjectAdded()

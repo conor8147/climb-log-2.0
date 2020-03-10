@@ -7,6 +7,9 @@ import android.widget.ImageButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.climbit.R
 
+/**
+ * Custom view for the action bar component. Contains filter, add, and search buttons
+ */
 class ActionBarView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,

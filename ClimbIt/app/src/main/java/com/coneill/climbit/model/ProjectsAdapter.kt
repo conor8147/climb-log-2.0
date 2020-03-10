@@ -1,33 +1,36 @@
 package com.coneill.climbit.model
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.coneill.climbit.views.ProjectCardView
 import com.example.climbit.R
 
 class ProjectsAdapter(private val dataset: List<Project>):
-    RecyclerView.Adapter<ProjectsAdapter.MyViewHolder>() {
+    RecyclerView.Adapter<ProjectsAdapter.ProjectCardViewHolder>() {
 
-    class MyViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        val name: TextView = view.findViewById(R.id.nameTextView)
-        val grade: TextView = view.findViewById(R.id.gradeTextView)
+    class ProjectCardViewHolder(view: ProjectCardView) : RecyclerView.ViewHolder(view) {
+        val name: TextView = view.nameTextView
+        val grade: TextView = view.gradeTextView
     }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): MyViewHolder {
+    ): ProjectCardViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.view_project_card, parent, false)
-
-        return MyViewHolder(view)
+            .inflate(R.layout.view_project_card, parent, false) as ProjectCardView
+        return ProjectCardViewHolder(view)
     }
 
     override fun getItemCount(): Int = dataset.size
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+    /**
+     * Called when view is bound to the view holder.
+     * Sets the name and grade fields of the project card.
+     */
+    override fun onBindViewHolder(holder: ProjectCardViewHolder, position: Int) {
         holder.name.text = dataset[position].name
         holder.grade.text = dataset[position].grade
     }

@@ -15,41 +15,47 @@ import com.coneill.climbit.model.Singleton
 import com.coneill.climbit.views.ActionBarView
 import com.example.climbit.R
 
-
+/**
+ * Activity used for listing users goal climbs.
+ */
 class ProjectsActivity : AppCompatActivity(), AddProjectDialog.OnProjectAddedListener {
 
-    private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
-    private lateinit var projectList: List<Project>
-
-    private lateinit var actionBarView: ActionBarView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_projects)
 
-        projectList = Singleton.projects
-
         viewManager = LinearLayoutManager(this)
-        viewAdapter = ProjectsAdapter(projectList)
+        viewAdapter = ProjectsAdapter(Singleton.projects)
 
-        val fragmentManager = supportFragmentManager
-
-        recyclerView = findViewById<RecyclerView>(R.id.recyclerView).apply {
+        // Set the view manager and view adapter for the recyclerView
+        findViewById<RecyclerView>(R.id.recyclerView).apply {
             setHasFixedSize(true)
             layoutManager = viewManager
             adapter = viewAdapter
         }
 
-        actionBarView = findViewById(R.id.actionBarView)
+        initActionBar()
+    }
+
+    /**
+     * Initialise the buttons (filter, search, and add) in the action bar and set their
+     * onClickListeners
+     */
+    private fun initActionBar() {
+        val fragmentManager = supportFragmentManager
+        val actionBarView:ActionBarView = findViewById(R.id.actionBarView)
 
         actionBarView.addButton.setOnClickListener {
             AddProjectDialog().show(fragmentManager, "add_project_dialog")
         }
-
     }
 
+    /**
+     * Set the selected icon to the heart in the bottom nav fragment
+     */
     override fun onAttachFragment(fragment: Fragment?) {
         super.onAttachFragment(fragment)
         if (fragment is BottomNavFragment) {
@@ -57,6 +63,9 @@ class ProjectsActivity : AppCompatActivity(), AddProjectDialog.OnProjectAddedLis
         }
     }
 
+    /**
+     * Called whenever the user successfully adds a project to the projects list.
+     */
     override fun onProjectAdded() {
         Toast.makeText(this, "Project Added!", Toast.LENGTH_LONG).show()
         viewAdapter.notifyDataSetChanged()
