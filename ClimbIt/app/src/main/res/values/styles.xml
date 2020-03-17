@@ -32,6 +32,7 @@
     <style name="gradeText">
         <item name="android:textSize">28sp</item>
         <item name="android:font">@font/sf_pro_semibold</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/colorAccent</item>
     </style>
 
@@ -43,12 +44,41 @@
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
+    <!-- Text style for subheadings -->
+    <style name="subHeadingText">
+        <item name="android:textSize">16sp</item>
+        <item name="android:font">@font/sf_pro_regular</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <!-- Text style for item numbers -->
+    <style name="numItemsText">
+        <item name="android:textSize">16sp</item>
+        <item name="android:font">@font/sf_pro_regular</item>
+        <item name="android:textColor">@color/blueGreyText</item>
+    </style>
+
     <!-- Text style for buttons -->
     <style name="buttonText">
         <item name="android:textSize">18sp</item>
         <item name="android:font">@font/sf_pro_semibold</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <!-- Text Style for climb cards -->
+    <style name="climbCardText">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:font">@font/sf_pro_semibold</item>
+        <item name="android:textColor">@color/backgroundWhite</item>
+    </style>
+
+    <!-- Text style for input boxes -->
+    <style name="inputText">
+        <item name="android:textSize">15sp</item>
+        <item name="android:font">@font/sf_pro_semibold</item>
+        <item name="android:textColor">@color/blueGreyText</item>
     </style>
 
 </resources>

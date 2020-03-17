@@ -1,16 +1,17 @@
 package com.coneill.climbit.model
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.coneill.climbit.views.ProjectCardView
 import com.example.climbit.R
+import kotlinx.android.synthetic.main.view_project_card.view.*
 
 class ProjectsAdapter(private val dataset: List<Project>):
     RecyclerView.Adapter<ProjectsAdapter.ProjectCardViewHolder>() {
 
-    class ProjectCardViewHolder(view: ProjectCardView) : RecyclerView.ViewHolder(view) {
+    class ProjectCardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val name: TextView = view.nameTextView
         val grade: TextView = view.gradeTextView
     }
@@ -20,7 +21,7 @@ class ProjectsAdapter(private val dataset: List<Project>):
         viewType: Int
     ): ProjectCardViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.view_project_card, parent, false) as ProjectCardView
+            .inflate(R.layout.view_project_card, parent, false)
         return ProjectCardViewHolder(view)
     }
 

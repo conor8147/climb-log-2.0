@@ -1,16 +1,15 @@
 package com.coneill.climbit.fragments
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import com.coneill.climbit.activities.HomeActivity
+import com.coneill.climbit.activities.LogbookActivity
 import com.coneill.climbit.activities.ProjectsActivity
-import com.coneill.climbit.activities.TestActivity
 
 import com.example.climbit.R
 
@@ -20,12 +19,6 @@ import com.example.climbit.R
  */
 class BottomNavFragment : Fragment() {
 
-    var icon: Int = HOME
-        set(newIcon) {
-            setHighlightedIcon(newIcon)
-            field = newIcon
-        }
-
     private var homeIcon: ImageView? = null
     private var bookIcon: ImageView? = null
     private var heartIcon: ImageView? = null
@@ -33,6 +26,7 @@ class BottomNavFragment : Fragment() {
     private var homeBackground: ImageView? = null
     private var bookBackground: ImageView? = null
     private var heartBackground: ImageView? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,29 +44,26 @@ class BottomNavFragment : Fragment() {
         heartBackground = view.findViewById(R.id.heart_icon_background)
 
         homeBackground?.setOnClickListener {
-            if (activity !is TestActivity) {
-                startActivity(
-                    Intent(context, TestActivity::class.java)
-                )
-            }
+            startActivity(Intent(context, HomeActivity::class.java))
         }
         bookBackground?.setOnClickListener {
+            startActivity(
+                Intent(context, LogbookActivity::class.java)
+            )
         }
         heartBackground?.setOnClickListener {
-            if (activity !is ProjectsActivity) {
-                startActivity(
-                    Intent(context, ProjectsActivity::class.java)
-                )
-            }
+            startActivity(
+                Intent(context, ProjectsActivity::class.java)
+            )
         }
 
         // Need to intially set icon when class is initialised
-        setHighlightedIcon(icon)
+        setIcons()
 
         return view
     }
 
-    private fun clearHighlighting() {
+    private fun resetIcons() {
         bookIcon?.setImageResource(R.drawable.ic_book)
         homeIcon?.setImageResource(R.drawable.ic_home)
         heartIcon?.setImageResource(R.drawable.ic_heart)
@@ -81,35 +72,35 @@ class BottomNavFragment : Fragment() {
         homeBackground?.setImageResource(R.drawable.icon_background_transparent)
         heartBackground?.setImageResource(R.drawable.icon_background_transparent)
 
+        bookBackground?.isClickable = true
+        homeBackground?.isClickable = true
+        heartBackground?.isClickable = true
+
     }
 
     /**
      * Sets the background of the specified icon to orange, and the stroke color of the icon to white
-     * @param whichIcon: Should be one: HOME, HEART, BOOK (these are companion fields to BottomNavFragment
+     * Also sets the icon for the current activity to be non-clickable
      */
-    private fun setHighlightedIcon(whichIcon: Int) {
-        clearHighlighting()
-        when (whichIcon) {
-            HOME -> {
+    private fun setIcons() {
+        resetIcons()
+        when (activity) {
+            is HomeActivity -> {
                 homeIcon?.setImageResource(R.drawable.ic_home_light)
                 homeBackground?.setImageResource(R.drawable.icon_background)
+                homeBackground?.isClickable = false
             }
-            BOOK -> {
+            is LogbookActivity -> {
                 bookIcon?.setImageResource(R.drawable.ic_book_light)
                 bookBackground?.setImageResource(R.drawable.icon_background)
+                bookBackground?.isClickable = false
             }
             else -> {
                 heartIcon?.setImageResource(R.drawable.ic_heart_light)
                 heartBackground?.setImageResource(R.drawable.icon_background)
+                heartBackground?.isClickable = false
             }
         }
     }
-
-    companion object {
-        const val HOME = 0
-        const val HEART = 1
-        const val BOOK = 2
-    }
-
 }
 

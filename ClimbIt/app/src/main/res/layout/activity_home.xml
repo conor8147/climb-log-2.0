@@ -4,35 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundWhite"
-    tools:context="com.coneill.climbit.activities.TestActivity">
-
+    tools:context="com.coneill.climbit.activities.HomeActivity">
 
     <View
-        android:id="@+id/background_blue2"
+        android:id="@+id/background_blue"
         android:layout_width="match_parent"
         android:layout_height="222dp"
         android:background="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <Button
-        android:id="@+id/button"
+    <TextView
+        android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:text="Button"
-        android:textColor="#EEEEEE"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="36dp"
+        android:text="@string/app_name"
+        android:textAppearance="@style/headerText"
+        app:layout_constraintStart_toStartOf="@+id/background_blue"
+        app:layout_constraintTop_toTopOf="@+id/background_blue" />
 
     <fragment
-        android:id="@+id/bottom_nav_frag"
+        android:id="@+id/fragment"
         android:name="com.coneill.climbit.fragments.BottomNavFragment"
         android:layout_width="match_parent"
         android:layout_height="93dp"
@@ -40,17 +36,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <view
-        android:id="@+id/view"
-        class="com.coneill.climbit.views.ProjectCardView"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/nameTextView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="38dp"
-        android:layout_marginLeft="38dp"
-        android:layout_marginTop="76dp"
-        android:layout_marginEnd="38dp"
-        android:layout_marginRight="38dp"
+        android:layout_marginEnd="76dp"
+        android:text="Conor O'Neill"
+        android:textAppearance="@style/subHeadingText"
+        app:layout_constraintBottom_toBottomOf="@+id/titleTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/background_blue2"
-        app:layout_constraintTop_toTopOf="@+id/background_blue2" />
+        app:layout_constraintTop_toTopOf="@+id/titleTextView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
