@@ -3,13 +3,11 @@ package com.coneill.climbit.activities
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.coneill.climbit.fragments.AddProjectDialog
-import com.coneill.climbit.fragments.BottomNavFragment
 import com.coneill.climbit.model.ProjectsAdapter
-import com.coneill.climbit.model.Singleton
+import com.coneill.climbit.model.Model
 import com.coneill.climbit.views.ActionBarView
 import com.example.climbit.R
 
@@ -26,7 +24,7 @@ class ProjectsActivity : AppCompatActivity(), AddProjectDialog.OnProjectAddedLis
         setContentView(R.layout.activity_projects)
 
         viewManager = LinearLayoutManager(this)
-        viewAdapter = ProjectsAdapter(Singleton.projects)
+        viewAdapter = ProjectsAdapter(Model.projects)
 
         // Set the view manager and view adapter for the recyclerView
         findViewById<RecyclerView>(R.id.recyclerView).apply {

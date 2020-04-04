@@ -8,27 +8,53 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.coneill.climbit.fragments.AddClimbDialog
+import com.coneill.climbit.fragments.FilterClimbDialog
 import com.coneill.climbit.model.ClimbsAdapter
-import com.coneill.climbit.model.Singleton
+import com.coneill.climbit.model.Model
 import com.coneill.climbit.views.ActionBarView
 import com.example.climbit.R
-import android.R as AR
 
 
-class LogbookActivity : AppCompatActivity() {
+class LogbookActivity : AppCompatActivity(), AddClimbDialog.OnClimbAddedListener, FilterClimbDialog.OnFiltersEnabledListener {
 
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var viewManager: LinearLayoutManager
+    private lateinit var viewAdapter: ClimbsAdapter
+
+    private val gradesList = Model.grades
+
+    var cragFilter: String? = null
+    var styleFilter: String? = null
+    var starFilter: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_logbook)
+        initViews()
+        initActionBar()
+        updateDataset()
+    }
 
-        val viewManager = LinearLayoutManager(this)
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+    private fun initViews() {
+        viewManager = LinearLayoutManager(this)
+        recyclerView = findViewById(R.id.recyclerView)
 
-        val viewAdapter = ClimbsAdapter(Singleton.climbs)
+        viewAdapter = ClimbsAdapter(gradesList, this)
 
+        // Set the view manager and view adapter for the recyclerView
+        recyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager = viewManager
+            adapter = viewAdapter
+            setDividers()
+        }
+    }
 
-        val ATTRS = intArrayOf(AR.attr.listDivider)
+    /**
+     * Set Decorations for recyclerView
+     */
+    private fun RecyclerView.setDividers() {
+        val ATTRS = intArrayOf(android.R.attr.listDivider)
         val a: TypedArray = obtainStyledAttributes(ATTRS)
         val divider = a.getDrawable(0)
         val inset = 32 // dp
@@ -36,20 +62,12 @@ class LogbookActivity : AppCompatActivity() {
         a.recycle()
 
         val dividerItemDecoration = DividerItemDecoration(
-            recyclerView.context,
+            this.context,
             viewManager.orientation
         )
         dividerItemDecoration.setDrawable(insetDivider)
+        this.addItemDecoration(dividerItemDecoration)
 
-        // Set the view manager and view adapter for the recyclerView
-        recyclerView.apply {
-            setHasFixedSize(true)
-            layoutManager = viewManager
-            adapter = viewAdapter
-            addItemDecoration(dividerItemDecoration)
-        }
-
-        initActionBar()
     }
 
     /**
@@ -61,7 +79,74 @@ class LogbookActivity : AppCompatActivity() {
         val actionBarView: ActionBarView = findViewById(R.id.actionBarView)
 
         actionBarView.addButton.setOnClickListener {
-            AddClimbDialog().show(fragmentManager, "add_climb_dialog")
+            AddClimbDialog().show(fragmentManager, null)
         }
+
+        actionBarView.filterButton.setOnClickListener {
+            FilterClimbDialog.newInstance(this).show(fragmentManager, null)
+        }
+    }
+
+    /**
+     * Called by AddClimbDialog when a new climb is successfully added to the dataset
+     */
+    override fun onClimbAdded() {
+        viewAdapter.notifyDataSetChanged()
+    }
+
+    /**
+     * Update the dataset while maintaining any filters present.
+     */
+    private fun updateDataset() {
+//        dataset.clear()
+//        for (item in Singleton.climbs) {
+//            dataset.add(item)
+//        }
+//
+//        if (cragFilter != null) {
+//            dataset.retainAll { it.crag == cragFilter }
+//        }
+//        if (styleFilter != null) {
+//            dataset.retainAll { it.style == styleFilter }
+//        }
+//        if (starFilter != null) {
+//            dataset.retainAll { it.stars == starFilter }
+//        }
+        viewAdapter.notifyDataSetChanged()
+    }
+
+    /**
+     * Called by FilterClimbsDialog when a new filter switch is enabled.
+     * switch id will be one of FilterClimbsDialog.[CRAG, GRADE, STARS]
+     */
+    override fun onSwitchEnabled(filterId: Int, filterContent: String) {
+        if (filterContent == "") return
+        when (filterId) {
+            FilterClimbDialog.CRAG -> {
+                cragFilter = filterContent
+            }
+            FilterClimbDialog.STYLE -> {
+                styleFilter = filterContent
+            }
+            FilterClimbDialog.STARS -> {
+                starFilter = filterContent.toInt()
+            }
+        }
+        updateDataset()
+    }
+
+    override fun onSwitchDisabled(filterId: Int) {
+        when (filterId) {
+            FilterClimbDialog.CRAG -> {
+                cragFilter = null
+            }
+            FilterClimbDialog.STYLE -> {
+                styleFilter = null
+            }
+            FilterClimbDialog.STARS -> {
+                starFilter = null
+            }
+        }
+        updateDataset()
     }
 }

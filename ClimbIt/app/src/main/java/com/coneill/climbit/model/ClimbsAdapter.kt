@@ -1,56 +1,69 @@
 package com.coneill.climbit.model
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.view.isVisible
+import androidx.core.view.marginBottom
 import androidx.recyclerview.widget.RecyclerView
+import com.coneill.climbit.views.ClimbCardView
 import com.example.climbit.R
-import kotlinx.android.synthetic.main.view_climb_card.view.*
+import kotlinx.android.synthetic.main.view_grade_card.view.*
 
-
-class ClimbsAdapter(private val dataset: List<Climb>) :
+class ClimbsAdapter(private val gradesList: List<Int>, private val context: Context) :
     RecyclerView.Adapter<ClimbsAdapter.ClimbViewHolder>() {
 
     var expandedPosition = -1
 
     class ClimbViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val nameTextView: TextView = view.climbNameTextView
-        val star1: ImageView = view.star1
-        val star2: ImageView = view.star2
-        val star3: ImageView = view.star3
-
+        val gradeTextView: TextView = view.gradeTextView
+        val numItemsTextView = view.numItemsTextView
+        val subItems: LinearLayout = view.subItemContainer
     }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ClimbsAdapter.ClimbViewHolder {
-
+    ): ClimbViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.view_climb_card, parent, false)
-
+            .inflate(R.layout.view_grade_card, parent, false)
         return ClimbViewHolder(view)
     }
 
-    override fun getItemCount(): Int = dataset.size
+    override fun getItemCount(): Int = gradesList.size
 
+    /**
+     * Called when a new object is scrolled into view.
+     * The linear layout should only be populated with climbs when it is revealed
+     */
     override fun onBindViewHolder(holder: ClimbViewHolder, position: Int) {
-        val climb = dataset[position]
-        holder.nameTextView.text = climb.name
+        var isExpanded = position == expandedPosition
+        var grade = gradesList[position]
+        val climbsList = Model.climbs.getOrDefault(grade, mutableListOf())
 
-        if (climb.stars > 0) {
-            holder.star1.isVisible = true
-        }
-        if (climb.stars > 1) {
-            holder.star2.isVisible = true
-        }
-        if (climb.stars > 2) {
-            holder.star3.isVisible = true
+        holder.numItemsTextView.text = context.getString(R.string.items, climbsList.size)
+
+        if (isExpanded) {
+            holder.subItems.removeAllViews()
+            for (climb in climbsList) {
+                val climbCard = ClimbCardView(context)
+                climbCard.climb = climb
+                holder.subItems.addView(climbCard)
+            }
+            holder.subItems.visibility = View.VISIBLE
+        } else {
+            holder.subItems.visibility = View.GONE
+            holder.subItems.removeAllViews()
         }
 
+        holder.itemView.setOnClickListener {
+            expandedPosition = if (isExpanded) -1 else position
+            notifyItemChanged(position)
+        }
+        holder.gradeTextView.text = gradesList[position].toString()
     }
+
 
 }

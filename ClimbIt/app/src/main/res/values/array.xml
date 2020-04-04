@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="styles_array">
-        <item>Ascent Style</item>
         <item>Onsight</item>
         <item>Flash</item>
         <item>Second Go</item>

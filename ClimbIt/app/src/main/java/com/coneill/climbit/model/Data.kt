@@ -23,7 +23,7 @@ data class Project(
  * @param stars Star rating for the climb. Should be an int between 0 and 3 inclusive
  * @param date  The date the route was climbed on
  */
-data class Climb(
+class Climb(
     val name: String,
     val grade: String,
     val crag: String,

@@ -15,4 +15,6 @@
     <string name="logbook">Logbook</string>
     <string name="add_climb">Add Climb</string>
     <string name="style">Ascent Style</string>
+    <string name="filter">Filter</string>
+    <string name="items">%d items</string>
 </resources>

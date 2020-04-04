@@ -1,6 +1,9 @@
 package com.coneill.climbit.fragments
 
 
+import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,7 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.DialogFragment
-import com.coneill.climbit.model.Singleton
+import com.coneill.climbit.model.Model
 import com.example.climbit.R
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -21,6 +24,7 @@ import java.util.*
  */
 class AddClimbDialog: DialogFragment() {
 
+    private var listener: OnClimbAddedListener? = null
     lateinit var nameEditText: EditText
     lateinit var cragEditText: EditText
     lateinit var dateEditText: EditText
@@ -33,14 +37,13 @@ class AddClimbDialog: DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val layout = inflater.inflate(R.layout.fragment_add_climb_dialog, container, false)
         initViews(layout)
-
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         layout.findViewById<Button>(R.id.doneButton)
             .setOnClickListener { buttonClicked() }
-
         dateEditText.addTextChangedListener(dateEntryWatcher)
-
         return layout
     }
 
@@ -48,7 +51,7 @@ class AddClimbDialog: DialogFragment() {
         nameEditText = layout.findViewById(R.id.nameEditText)
         cragEditText = layout.findViewById(R.id.cragEditText)
         dateEditText = layout.findViewById(R.id.dateEditText)
-        gradeEditText = layout.findViewById(R.id.gradeEditText)
+        gradeEditText = layout.findViewById(R.id.styleEditText)
         styleSpinner = layout.findViewById(R.id.styleSpinner)
         starsRatingBar = layout.findViewById(R.id.ratingBar)
 
@@ -69,21 +72,52 @@ class AddClimbDialog: DialogFragment() {
     private fun addClimb() {
         val formatter = DateTimeFormatter.ofPattern("d/M/yyyy", Locale.ENGLISH)
 
-        Singleton.addClimb(
+        Model.addClimb(
             nameEditText.text.toString(),
             styleSpinner.selectedItem.toString(),
             gradeEditText.text.toString(),
             cragEditText.text.toString(),
-            starsRatingBar.numStars,
+            starsRatingBar.rating.toInt(),
             LocalDate.parse(dateEditText.text.toString(), formatter)
         )
     }
 
     private fun buttonClicked() {
+        listener?.onClimbAdded()
         addClimb()
         dismiss()
     }
 
+    /**
+     * Called when fragment is attached to the window, checks that the context implements
+     * the OnProjectAdded Listener, otherwise..
+     * @throws RuntimeException
+     */
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnClimbAddedListener) {
+            listener = context
+        } else {
+            throw RuntimeException("$context must implement OnClimbAddedListener")
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
+    }
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     */
+    interface OnClimbAddedListener {
+        fun onClimbAdded()
+    }
+
+    // Ensures that date is being added in correct format
     private val dateEntryWatcher: TextWatcher = object : TextWatcher {
 
         override fun onTextChanged(

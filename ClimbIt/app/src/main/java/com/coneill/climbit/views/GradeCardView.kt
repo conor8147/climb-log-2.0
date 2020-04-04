@@ -18,7 +18,6 @@ class GradeCardView @JvmOverloads constructor(
 
     init {
         LayoutInflater.from(context).inflate(R.layout.view_grade_card, this, true)
-
         val gradeView: TextView = findViewById(R.id.gradeTextView)
         val numItemsView: TextView = findViewById(R.id.numItemsTextView)
     }

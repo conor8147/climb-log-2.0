@@ -80,5 +80,4 @@
         <item name="android:font">@font/sf_pro_semibold</item>
         <item name="android:textColor">@color/blueGreyText</item>
     </style>
-
 </resources>

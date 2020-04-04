@@ -1,6 +1,8 @@
 package com.coneill.climbit.fragments
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +11,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
-import com.coneill.climbit.model.Singleton
+import com.coneill.climbit.model.Model
 
 import com.example.climbit.R
 
@@ -28,16 +30,14 @@ class AddProjectDialog : DialogFragment() {
     ): View? {
         // Inflate the layout for this fragment
         val layout = inflater.inflate(R.layout.fragment_add_project_dialog, container, false)
-
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         layout.findViewById<Button>(R.id.addButton).setOnClickListener {
             if (addProject()) {
                 dismiss()
             }
         }
-
         nameEditText = layout.findViewById(R.id.nameEditText)
-        gradeEditText = layout.findViewById(R.id.gradeEditText)
-
+        gradeEditText = layout.findViewById(R.id.styleEditText)
 
         return layout
     }
@@ -57,7 +57,7 @@ class AddProjectDialog : DialogFragment() {
             Toast.makeText(context, "Name is too long.", Toast.LENGTH_LONG).show()
             false
         } else {
-            Singleton.addProject(
+            Model.addProject(
                 name,
                 grade
             )
