@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.coneill.climbit.activities.LogbookActivity">
+    android:background="@color/backgroundWhite"
+    tools:context="com.coneill.climbit.view.activities.LogbookActivity">
 
     <View
         android:id="@+id/background_blue"
@@ -28,7 +29,7 @@
 
     <view
         android:id="@+id/actionBarView"
-        class="com.coneill.climbit.views.ActionBarView"
+        class="com.coneill.climbit.view.views.ActionBarView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -38,9 +39,10 @@
 
     <fragment
         android:id="@+id/bottomNav"
-        android:name="com.coneill.climbit.fragments.BottomNavFragment"
+        android:name="com.coneill.climbit.view.fragments.BottomNavFragment"
         android:layout_width="match_parent"
         android:layout_height="93dp"
+        android:elevation="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

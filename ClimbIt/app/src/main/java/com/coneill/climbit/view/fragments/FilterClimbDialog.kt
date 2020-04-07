@@ -1,19 +1,16 @@
-package com.coneill.climbit.fragments
+package com.coneill.climbit.view.fragments
 
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.text.Editable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.Filter
 import android.widget.Switch
 import androidx.fragment.app.DialogFragment
-import com.coneill.climbit.activities.LogbookActivity
+import com.coneill.climbit.view.activities.LogbookActivity
 import com.example.climbit.R
 
 class FilterClimbDialog: DialogFragment() {

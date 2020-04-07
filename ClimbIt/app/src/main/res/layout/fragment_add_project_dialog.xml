@@ -7,7 +7,7 @@
     android:background="@drawable/white_rounded_rectangle"
     android:minWidth="350dp"
     android:minHeight="300dp"
-    tools:context="com.coneill.climbit.fragments.AddProjectDialog">
+    tools:context="com.coneill.climbit.view.fragments.AddProjectDialog">
 
     <TextView
         android:id="@+id/title"

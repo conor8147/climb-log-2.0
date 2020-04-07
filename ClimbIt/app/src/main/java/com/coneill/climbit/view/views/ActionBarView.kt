@@ -1,4 +1,4 @@
-package com.coneill.climbit.views
+package com.coneill.climbit.view.views
 
 import android.content.Context
 import android.util.AttributeSet

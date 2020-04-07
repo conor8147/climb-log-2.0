@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundWhite"
-    tools:context="com.coneill.climbit.activities.ProjectsActivity">
+    tools:context="com.coneill.climbit.view.activities.ProjectsActivity">
 
     <View
         android:id="@+id/background_blue"
@@ -29,7 +29,7 @@
 
     <fragment
         android:id="@+id/bottomNavFragment"
-        android:name="com.coneill.climbit.fragments.BottomNavFragment"
+        android:name="com.coneill.climbit.view.fragments.BottomNavFragment"
         android:layout_width="match_parent"
         android:layout_height="93dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -50,7 +50,7 @@
 
     <view
         android:id="@+id/actionBarView"
-        class="com.coneill.climbit.views.ActionBarView"
+        class="com.coneill.climbit.view.views.ActionBarView"
         android:layout_width="match_parent"
         android:layout_height="32dp"
         android:layout_marginTop="24dp"

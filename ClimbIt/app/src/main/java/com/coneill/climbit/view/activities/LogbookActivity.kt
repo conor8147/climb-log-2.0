@@ -1,4 +1,4 @@
-package com.coneill.climbit.activities
+package com.coneill.climbit.view.activities
 
 import android.content.res.TypedArray
 import android.graphics.drawable.InsetDrawable
@@ -7,11 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.coneill.climbit.fragments.AddClimbDialog
-import com.coneill.climbit.fragments.FilterClimbDialog
-import com.coneill.climbit.model.ClimbsAdapter
+import com.coneill.climbit.view.fragments.AddClimbDialog
+import com.coneill.climbit.view.fragments.FilterClimbDialog
+import com.coneill.climbit.controller.ClimbsAdapter
 import com.coneill.climbit.model.Model
-import com.coneill.climbit.views.ActionBarView
+import com.coneill.climbit.view.views.ActionBarView
 import com.example.climbit.R
 
 
@@ -39,7 +39,8 @@ class LogbookActivity : AppCompatActivity(), AddClimbDialog.OnClimbAddedListener
         viewManager = LinearLayoutManager(this)
         recyclerView = findViewById(R.id.recyclerView)
 
-        viewAdapter = ClimbsAdapter(gradesList, this)
+        viewAdapter =
+            ClimbsAdapter(gradesList, this)
 
         // Set the view manager and view adapter for the recyclerView
         recyclerView.apply {

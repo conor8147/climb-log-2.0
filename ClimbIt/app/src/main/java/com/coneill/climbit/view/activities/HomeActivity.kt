@@ -1,8 +1,7 @@
-package com.coneill.climbit.activities
+package com.coneill.climbit.view.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.coneill.climbit.fragments.BottomNavFragment
 import com.example.climbit.R
 
 class HomeActivity : AppCompatActivity() {

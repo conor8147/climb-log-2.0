@@ -16,16 +16,25 @@ object Model {
 
     // Mutable map of grades to climbs for the user's logbook
     val climbs = mutableMapOf(
+        Pair(21, mutableListOf(
+            Climb("Uhaul", "21", "Britten Crags", "Onsight", 1)
+        )),
+        Pair(22, mutableListOf(
+            Climb("Storming the Gates of Troy", "22", "Mangaokewa", "Onsight", 2)
+        )),
         Pair(23, mutableListOf(
             Climb(name="Moonshine", grade="23", crag="Mangaokewa", stars=1, style="Redpoint"),
             Climb(name="Liposuction", grade="23", crag="Britten Crag", stars=3, style="Redpoint")
         )),
         Pair(24, mutableListOf(
             Climb("Lunge Starter", "24", "Wanaka", style="Redpoint")
+        )),
+        Pair(26, mutableListOf(
+            Climb("Rubble", "26", "The Cave", "Redpoint", 1)
         ))
     )
 
-    val grades = mutableListOf(23, 24)
+    val grades: MutableList<Int> = climbs.keys.toMutableList()
 
     /**
      * Add new project to the top of the projectsList

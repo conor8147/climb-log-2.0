@@ -1,6 +1,7 @@
-package com.coneill.climbit.views
+package com.coneill.climbit.view.views
 
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +28,7 @@ class ClimbCardView @JvmOverloads constructor(
             nameTextView.text = climb?.name
             climb?.let {
                 setStars(it.stars)
+                setStyleAccent(it.style)
             }
             field = climb
         }
@@ -41,6 +43,20 @@ class ClimbCardView @JvmOverloads constructor(
         if (numStars > 2) {
             layout.star3.visibility = View.VISIBLE
         }
+    }
+
+    /**
+     * Set the colour of the small circle left of the climb name based on the style.
+     * style should be one of: Climb.ONSIGHT, Climb.FLASH, Climb.REDPOINT
+     */
+    private fun setStyleAccent(style: String) {
+        val colour: Int = when (style) {
+            Climb.REDPOINT -> Color.RED
+            Climb.FLASH -> Color.YELLOW
+            else -> Color.WHITE
+        }
+
+        layout.findViewById<View>(R.id.styleAccent).background.setTint(colour)
     }
 
 }

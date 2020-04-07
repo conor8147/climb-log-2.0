@@ -1,4 +1,4 @@
-package com.coneill.climbit.fragments
+package com.coneill.climbit.view.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,9 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import com.coneill.climbit.activities.HomeActivity
-import com.coneill.climbit.activities.LogbookActivity
-import com.coneill.climbit.activities.ProjectsActivity
+import com.coneill.climbit.view.activities.HomeActivity
+import com.coneill.climbit.view.activities.LogbookActivity
+import com.coneill.climbit.view.activities.ProjectsActivity
 
 import com.example.climbit.R
 

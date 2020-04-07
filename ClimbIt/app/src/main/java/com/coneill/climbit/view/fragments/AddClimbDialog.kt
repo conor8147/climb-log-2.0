@@ -1,4 +1,4 @@
-package com.coneill.climbit.fragments
+package com.coneill.climbit.view.fragments
 
 
 import android.content.Context
@@ -12,15 +12,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.DialogFragment
+import com.coneill.climbit.model.Climb
 import com.coneill.climbit.model.Model
 import com.example.climbit.R
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-
 /**
- * Dialog used for adding climbs to the logbook.
+ * Dialog used for adding climbs to the dataset.
  */
 class AddClimbDialog: DialogFragment() {
 
@@ -56,10 +56,10 @@ class AddClimbDialog: DialogFragment() {
         starsRatingBar = layout.findViewById(R.id.ratingBar)
 
 
-        ArrayAdapter.createFromResource(
+        ArrayAdapter(
             requireContext(),
-            R.array.styles_array,
-            android.R.layout.simple_spinner_item
+            android.R.layout.simple_spinner_item,
+            Climb.ascentTypes
         ).also { adapter ->
             // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -117,7 +117,9 @@ class AddClimbDialog: DialogFragment() {
         fun onClimbAdded()
     }
 
-    // Ensures that date is being added in correct format
+    /**
+     * Watcher to be used on date input fields. Ensures that date is in format dd/mm/yyyy
+     */
     private val dateEntryWatcher: TextWatcher = object : TextWatcher {
 
         override fun onTextChanged(

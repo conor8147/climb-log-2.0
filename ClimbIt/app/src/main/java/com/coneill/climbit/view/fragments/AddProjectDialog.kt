@@ -1,4 +1,4 @@
-package com.coneill.climbit.fragments
+package com.coneill.climbit.view.fragments
 
 import android.content.Context
 import android.graphics.Color

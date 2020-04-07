@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="93dp"
     android:background="@drawable/bottom_nav_background"
-    tools:context="com.coneill.climbit.fragments.BottomNavFragment">
+    tools:context="com.coneill.climbit.view.fragments.BottomNavFragment">
 
 
     <ImageView

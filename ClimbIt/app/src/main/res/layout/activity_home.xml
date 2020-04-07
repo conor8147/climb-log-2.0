@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.coneill.climbit.activities.HomeActivity">
+    android:background="@color/backgroundWhite"
+    tools:context="com.coneill.climbit.view.activities.HomeActivity">
 
     <View
         android:id="@+id/background_blue"
@@ -29,7 +30,7 @@
 
     <fragment
         android:id="@+id/fragment"
-        android:name="com.coneill.climbit.fragments.BottomNavFragment"
+        android:name="com.coneill.climbit.view.fragments.BottomNavFragment"
         android:layout_width="match_parent"
         android:layout_height="93dp"
         app:layout_constraintBottom_toBottomOf="parent"

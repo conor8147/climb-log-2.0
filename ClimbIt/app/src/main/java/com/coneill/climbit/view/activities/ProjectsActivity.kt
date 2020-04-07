@@ -1,14 +1,14 @@
-package com.coneill.climbit.activities
+package com.coneill.climbit.view.activities
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.coneill.climbit.fragments.AddProjectDialog
-import com.coneill.climbit.model.ProjectsAdapter
+import com.coneill.climbit.view.fragments.AddProjectDialog
+import com.coneill.climbit.controller.ProjectsAdapter
 import com.coneill.climbit.model.Model
-import com.coneill.climbit.views.ActionBarView
+import com.coneill.climbit.view.views.ActionBarView
 import com.example.climbit.R
 
 /**
@@ -24,7 +24,8 @@ class ProjectsActivity : AppCompatActivity(), AddProjectDialog.OnProjectAddedLis
         setContentView(R.layout.activity_projects)
 
         viewManager = LinearLayoutManager(this)
-        viewAdapter = ProjectsAdapter(Model.projects)
+        viewAdapter =
+            ProjectsAdapter(Model.projects)
 
         // Set the view manager and view adapter for the recyclerView
         findViewById<RecyclerView>(R.id.recyclerView).apply {
@@ -42,7 +43,7 @@ class ProjectsActivity : AppCompatActivity(), AddProjectDialog.OnProjectAddedLis
      */
     private fun initActionBar() {
         val fragmentManager = supportFragmentManager
-        val actionBarView:ActionBarView = findViewById(R.id.actionBarView)
+        val actionBarView: ActionBarView = findViewById(R.id.actionBarView)
 
         actionBarView.addButton.setOnClickListener {
             AddProjectDialog().show(fragmentManager, "add_project_dialog")

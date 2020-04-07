@@ -31,5 +31,12 @@ class Climb(
     val stars: Int = 0,
     val date: LocalDate? = null
 ) {
+    companion object {
+        const val REDPOINT = "Redpoint"
+        const val FLASH = "Flash"
+        const val ONSIGHT = "Onsight"
+
+        val ascentTypes = listOf(REDPOINT, FLASH, ONSIGHT)
+    }
 }
 

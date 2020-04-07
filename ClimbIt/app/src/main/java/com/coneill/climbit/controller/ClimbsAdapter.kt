@@ -1,4 +1,4 @@
-package com.coneill.climbit.model
+package com.coneill.climbit.controller
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.view.marginBottom
 import androidx.recyclerview.widget.RecyclerView
-import com.coneill.climbit.views.ClimbCardView
+import com.coneill.climbit.model.Model
+import com.coneill.climbit.view.views.ClimbCardView
 import com.example.climbit.R
 import kotlinx.android.synthetic.main.view_grade_card.view.*
 
@@ -45,10 +45,12 @@ class ClimbsAdapter(private val gradesList: List<Int>, private val context: Cont
 
         holder.numItemsTextView.text = context.getString(R.string.items, climbsList.size)
 
+        // When grade card has been selected, expand to show all climbs of that grade
         if (isExpanded) {
             holder.subItems.removeAllViews()
             for (climb in climbsList) {
-                val climbCard = ClimbCardView(context)
+                val climbCard =
+                    ClimbCardView(context)
                 climbCard.climb = climb
                 holder.subItems.addView(climbCard)
             }

@@ -1,10 +1,11 @@
-package com.coneill.climbit.model
+package com.coneill.climbit.controller
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.coneill.climbit.model.Project
 import com.example.climbit.R
 import kotlinx.android.synthetic.main.view_project_card.view.*
 
@@ -22,7 +23,9 @@ class ProjectsAdapter(private val dataset: List<Project>):
     ): ProjectCardViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.view_project_card, parent, false)
-        return ProjectCardViewHolder(view)
+        return ProjectCardViewHolder(
+            view
+        )
     }
 
     override fun getItemCount(): Int = dataset.size
