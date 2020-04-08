@@ -80,4 +80,11 @@
         <item name="android:font">@font/sf_pro_semibold</item>
         <item name="android:textColor">@color/blueGreyText</item>
     </style>
+
+    <style name="deleteButtonText">
+        <item name="android:textSize">24sp</item>
+        <item name="android:font">@font/sf_pro_semibold</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
 </resources>

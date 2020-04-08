@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="com.coneill.climbit.view.activities.LogbookActivity"></activity>
+        <activity android:name="com.coneill.climbit.view.activities.LogbookActivity"/>
         <activity android:name="com.coneill.climbit.view.activities.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

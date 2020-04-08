@@ -48,7 +48,7 @@ class AddProjectDialog : DialogFragment() {
      */
     private fun addProject(): Boolean {
         val name = nameEditText.text.toString()
-        val grade = gradeEditText.text.toString()
+        val grade = gradeEditText.text.toString().toIntOrNull()
 
         return if (!isGradeCorrectFormat(grade)) {
             Toast.makeText(context, "Invalid grade format.", Toast.LENGTH_LONG).show()
@@ -59,7 +59,7 @@ class AddProjectDialog : DialogFragment() {
         } else {
             Model.addProject(
                 name,
-                grade
+                grade!! // Grade is confirmed not null in first if block
             )
             listener?.onProjectAdded()
             true
@@ -69,11 +69,10 @@ class AddProjectDialog : DialogFragment() {
     /**
      * Checks if the climb grade is in an acceptable format, ie integer in [0, 40]
      */
-    private fun isGradeCorrectFormat(grade: String): Boolean {
-        val intGrade = grade.toIntOrNull()
-        return intGrade != null &&
-                intGrade >= 0 &&
-                intGrade < 100
+    private fun isGradeCorrectFormat(grade: Int?): Boolean {
+        return grade != null &&
+                grade >= 0 &&
+                grade < 100
     }
 
     /**

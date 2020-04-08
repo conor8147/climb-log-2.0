@@ -3,6 +3,7 @@ package com.coneill.climbit.view.activities
 import android.content.res.TypedArray
 import android.graphics.drawable.InsetDrawable
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,12 +11,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.coneill.climbit.view.fragments.AddClimbDialog
 import com.coneill.climbit.view.fragments.FilterClimbDialog
 import com.coneill.climbit.controller.ClimbsAdapter
+import com.coneill.climbit.model.Climb
 import com.coneill.climbit.model.Model
+import com.coneill.climbit.view.fragments.MyDeleteDialog
 import com.coneill.climbit.view.views.ActionBarView
 import com.example.climbit.R
 
 
-class LogbookActivity : AppCompatActivity(), AddClimbDialog.OnClimbAddedListener, FilterClimbDialog.OnFiltersEnabledListener {
+class LogbookActivity : AppCompatActivity(), AddClimbDialog.OnClimbAddedListener, FilterClimbDialog.OnFiltersEnabledListener, MyDeleteDialog.OnDeleteListener {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewManager: LinearLayoutManager
@@ -32,15 +35,13 @@ class LogbookActivity : AppCompatActivity(), AddClimbDialog.OnClimbAddedListener
         setContentView(R.layout.activity_logbook)
         initViews()
         initActionBar()
-        updateDataset()
     }
 
     private fun initViews() {
         viewManager = LinearLayoutManager(this)
         recyclerView = findViewById(R.id.recyclerView)
 
-        viewAdapter =
-            ClimbsAdapter(gradesList, this)
+        viewAdapter = ClimbsAdapter(gradesList, this)
 
         // Set the view manager and view adapter for the recyclerView
         recyclerView.apply {
@@ -96,27 +97,6 @@ class LogbookActivity : AppCompatActivity(), AddClimbDialog.OnClimbAddedListener
     }
 
     /**
-     * Update the dataset while maintaining any filters present.
-     */
-    private fun updateDataset() {
-//        dataset.clear()
-//        for (item in Singleton.climbs) {
-//            dataset.add(item)
-//        }
-//
-//        if (cragFilter != null) {
-//            dataset.retainAll { it.crag == cragFilter }
-//        }
-//        if (styleFilter != null) {
-//            dataset.retainAll { it.style == styleFilter }
-//        }
-//        if (starFilter != null) {
-//            dataset.retainAll { it.stars == starFilter }
-//        }
-        viewAdapter.notifyDataSetChanged()
-    }
-
-    /**
      * Called by FilterClimbsDialog when a new filter switch is enabled.
      * switch id will be one of FilterClimbsDialog.[CRAG, GRADE, STARS]
      */
@@ -133,7 +113,6 @@ class LogbookActivity : AppCompatActivity(), AddClimbDialog.OnClimbAddedListener
                 starFilter = filterContent.toInt()
             }
         }
-        updateDataset()
     }
 
     override fun onSwitchDisabled(filterId: Int) {
@@ -148,6 +127,11 @@ class LogbookActivity : AppCompatActivity(), AddClimbDialog.OnClimbAddedListener
                 starFilter = null
             }
         }
-        updateDataset()
+    }
+
+    override fun onDelete(climb: Climb) {
+        Model.climbs[climb.grade]?.remove(climb) != null
+        viewAdapter.notifyDataSetChanged()
+        Toast.makeText(this, "${climb.name} deleted.", Toast.LENGTH_LONG).show()
     }
 }

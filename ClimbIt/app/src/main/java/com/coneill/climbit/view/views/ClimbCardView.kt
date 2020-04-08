@@ -6,8 +6,10 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.coneill.climbit.model.Climb
+import com.coneill.climbit.view.fragments.MyDeleteDialog
 import com.example.climbit.R
 import kotlinx.android.synthetic.main.view_climb_card.view.*
 
@@ -23,15 +25,15 @@ class ClimbCardView @JvmOverloads constructor(
     val layout: View = LayoutInflater.from(context).inflate(R.layout.view_climb_card, this, true)
     private val nameTextView: TextView = layout.climbNameTextView
 
-    var climb: Climb? = null
-        set(climb) {
-            nameTextView.text = climb?.name
-            climb?.let {
-                setStars(it.stars)
-                setStyleAccent(it.style)
-            }
-            field = climb
+
+    constructor(context: Context, climb: Climb) : this(context) {
+        nameTextView.text = climb.name
+        climb.let {
+            setStars(it.stars)
+            setStyleAccent(it.style)
+            nameTextView.text = it.name
         }
+    }
 
     private fun setStars(numStars: Int) {
         if (numStars > 0) {
@@ -51,12 +53,12 @@ class ClimbCardView @JvmOverloads constructor(
      */
     private fun setStyleAccent(style: String) {
         val colour: Int = when (style) {
-            Climb.REDPOINT -> Color.RED
-            Climb.FLASH -> Color.YELLOW
-            else -> Color.WHITE
+            Climb.REDPOINT -> R.drawable.style_background_redpoint
+            Climb.FLASH -> R.drawable.style_background_flash
+            else -> R.drawable.style_background_onsight
         }
 
-        layout.findViewById<View>(R.id.styleAccent).background.setTint(colour)
+        layout.findViewById<View>(R.id.styleAccent).background = getDrawable(context, colour)
     }
 
 }

@@ -75,7 +75,7 @@ class AddClimbDialog: DialogFragment() {
         Model.addClimb(
             nameEditText.text.toString(),
             styleSpinner.selectedItem.toString(),
-            gradeEditText.text.toString(),
+            gradeEditText.text.toString().toInt(),
             cragEditText.text.toString(),
             starsRatingBar.rating.toInt(),
             LocalDate.parse(dateEditText.text.toString(), formatter)

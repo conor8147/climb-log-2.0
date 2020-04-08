@@ -10,7 +10,7 @@ import java.time.LocalDate
  */
 data class Project(
     val name: String,
-    val grade: String,
+    val grade: Int,
     val crag: String
 )
 
@@ -25,7 +25,7 @@ data class Project(
  */
 class Climb(
     val name: String,
-    val grade: String,
+    val grade: Int,
     val crag: String,
     val style: String,
     val stars: Int = 0,

@@ -36,7 +36,7 @@ class ProjectsAdapter(private val dataset: List<Project>):
      */
     override fun onBindViewHolder(holder: ProjectCardViewHolder, position: Int) {
         holder.name.text = dataset[position].name
-        holder.grade.text = dataset[position].grade
+        holder.grade.text = dataset[position].grade.toString()
     }
 
 
