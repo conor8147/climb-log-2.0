@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/styleEditText"
+                    android:id="@+id/gradeEditText"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
@@ -58,9 +58,9 @@
                     android:layout_height="0dp"
                     android:layout_marginStart="32dp"
                     android:textAppearance="@style/inputText"
-                    app:layout_constraintBottom_toBottomOf="@+id/styleEditText"
-                    app:layout_constraintStart_toEndOf="@+id/styleEditText"
-                    app:layout_constraintTop_toTopOf="@+id/styleEditText" />
+                    app:layout_constraintBottom_toBottomOf="@+id/cragEditText"
+                    app:layout_constraintStart_toEndOf="@+id/cragEditText"
+                    app:layout_constraintTop_toTopOf="@+id/cragEditText" />
 
                 <EditText
                     android:id="@+id/nameEditText"
@@ -84,7 +84,7 @@
                     android:numStars="3"
                     android:stepSize="1"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/styleEditText" />
+                    app:layout_constraintTop_toBottomOf="@+id/gradeEditText" />
 
                 <TextView
                     android:id="@+id/title"

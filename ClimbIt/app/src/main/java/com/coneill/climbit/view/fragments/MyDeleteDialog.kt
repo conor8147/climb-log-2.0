@@ -8,10 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import com.coneill.climbit.model.BaseClimb
 import com.coneill.climbit.model.Climb
 import com.example.climbit.R
 
-class MyDeleteDialog(val climb: Climb): DialogFragment() {
+class MyDeleteDialog(val climb: BaseClimb): DialogFragment() {
 
     private var listener: OnDeleteListener? = null
 
@@ -47,6 +48,6 @@ class MyDeleteDialog(val climb: Climb): DialogFragment() {
 
 
     interface OnDeleteListener {
-        fun onDelete(climb: Climb)
+        fun onDelete(baseClimb: BaseClimb)
     }
 }

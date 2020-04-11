@@ -51,7 +51,7 @@ class AddClimbDialog: DialogFragment() {
         nameEditText = layout.findViewById(R.id.nameEditText)
         cragEditText = layout.findViewById(R.id.cragEditText)
         dateEditText = layout.findViewById(R.id.dateEditText)
-        gradeEditText = layout.findViewById(R.id.styleEditText)
+        gradeEditText = layout.findViewById(R.id.gradeEditText)
         styleSpinner = layout.findViewById(R.id.styleSpinner)
         starsRatingBar = layout.findViewById(R.id.ratingBar)
 

@@ -6,15 +6,19 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.coneill.climbit.model.Project
+import com.coneill.climbit.view.activities.ProjectsActivity
+import com.coneill.climbit.view.fragments.MyDeleteDialog
+import com.coneill.climbit.view.views.ClimbCardView
 import com.example.climbit.R
 import kotlinx.android.synthetic.main.view_project_card.view.*
 
-class ProjectsAdapter(private val dataset: List<Project>):
+class ProjectsAdapter(private val dataset: MutableList<Project>, private val projectsActivity: ProjectsActivity):
     RecyclerView.Adapter<ProjectsAdapter.ProjectCardViewHolder>() {
 
-    class ProjectCardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ProjectCardViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val name: TextView = view.nameTextView
         val grade: TextView = view.gradeTextView
+        val crag: TextView = view.cragTextView
     }
 
     override fun onCreateViewHolder(
@@ -23,9 +27,7 @@ class ProjectsAdapter(private val dataset: List<Project>):
     ): ProjectCardViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.view_project_card, parent, false)
-        return ProjectCardViewHolder(
-            view
-        )
+        return ProjectCardViewHolder(view)
     }
 
     override fun getItemCount(): Int = dataset.size
@@ -35,8 +37,15 @@ class ProjectsAdapter(private val dataset: List<Project>):
      * Sets the name and grade fields of the project card.
      */
     override fun onBindViewHolder(holder: ProjectCardViewHolder, position: Int) {
-        holder.name.text = dataset[position].name
-        holder.grade.text = dataset[position].grade.toString()
+        val project = dataset[position]
+        holder.name.text = project.name
+        holder.grade.text = project.grade.toString()
+        holder.crag.text = project.crag
+        val fragmentManager = projectsActivity.supportFragmentManager
+        holder.view.setOnLongClickListener {
+            MyDeleteDialog(project).show(fragmentManager, null)
+            true
+        }
     }
 
 

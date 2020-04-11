@@ -12,6 +12,7 @@
     <string name="done">Done</string>
     <string name="name">Name...</string>
     <string name="grade">Grade...</string>
+    <string name="crag">Crag...</string>
     <string name="logbook">Logbook</string>
     <string name="add_climb">Add Climb</string>
     <string name="style">Ascent Style</string>

@@ -11,6 +11,18 @@ object Model {
         Project("Moonshine", 23, "Mangaokewa"),
         Project("Rubble", 27, "The Cave"),
         Project("Liposuction", 23, "Britten Crag"),
+        Project("Moonshine", 23, "Mangaokewa"),
+        Project("Rubble", 27, "The Cave"),
+        Project("Liposuction", 23, "Britten Crag"),
+        Project("Moonshine", 23, "Mangaokewa"),
+        Project("Rubble", 27, "The Cave"),
+        Project("Liposuction", 23, "Britten Crag"),
+        Project("Moonshine", 23, "Mangaokewa"),
+        Project("Rubble", 27, "The Cave"),
+        Project("Liposuction", 23, "Britten Crag"),
+        Project("Moonshine", 23, "Mangaokewa"),
+        Project("Rubble", 27, "The Cave"),
+        Project("Liposuction", 23, "Britten Crag"),
         Project("Lunge Starter", 24, "Hospital Flat")
     )
 

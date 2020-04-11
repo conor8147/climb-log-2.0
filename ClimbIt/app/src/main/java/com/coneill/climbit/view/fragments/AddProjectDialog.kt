@@ -23,6 +23,7 @@ class AddProjectDialog : DialogFragment() {
     private var listener: OnProjectAddedListener? = null
     private lateinit var nameEditText: EditText
     private lateinit var gradeEditText: EditText
+    private lateinit var cragEditText: EditText
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +38,8 @@ class AddProjectDialog : DialogFragment() {
             }
         }
         nameEditText = layout.findViewById(R.id.nameEditText)
-        gradeEditText = layout.findViewById(R.id.styleEditText)
+        cragEditText = layout.findViewById(R.id.cragEditText)
+        gradeEditText = layout.findViewById(R.id.gradeEditText)
 
         return layout
     }
@@ -49,6 +51,7 @@ class AddProjectDialog : DialogFragment() {
     private fun addProject(): Boolean {
         val name = nameEditText.text.toString()
         val grade = gradeEditText.text.toString().toIntOrNull()
+        val crag = cragEditText.text.toString()
 
         return if (!isGradeCorrectFormat(grade)) {
             Toast.makeText(context, "Invalid grade format.", Toast.LENGTH_LONG).show()
@@ -59,7 +62,8 @@ class AddProjectDialog : DialogFragment() {
         } else {
             Model.addProject(
                 name,
-                grade!! // Grade is confirmed not null in first if block
+                grade!!, // Grade is confirmed not null in first if block
+                crag
             )
             listener?.onProjectAdded()
             true

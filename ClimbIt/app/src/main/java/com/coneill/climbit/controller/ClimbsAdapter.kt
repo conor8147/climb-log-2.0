@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
+import com.coneill.climbit.model.Climb
 import com.coneill.climbit.model.Model
 import com.coneill.climbit.view.activities.LogbookActivity
 import com.coneill.climbit.view.fragments.MyDeleteDialog
@@ -23,6 +24,8 @@ class ClimbsAdapter(private val gradesList: List<Int>, private val logbookActivi
     RecyclerView.Adapter<ClimbsAdapter.ClimbViewHolder>() {
 
     var expandedPosition = -1
+    val fragmentManager: FragmentManager = logbookActivity.supportFragmentManager
+
 
     class ClimbViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val gradeTextView: TextView = view.gradeTextView
@@ -49,21 +52,11 @@ class ClimbsAdapter(private val gradesList: List<Int>, private val logbookActivi
         val isExpanded = position == expandedPosition
         val grade = gradesList[position]
         val climbsList = Model.climbs.getOrDefault(grade, mutableListOf())
-        val fragmentManager: FragmentManager = logbookActivity.supportFragmentManager
         holder.numItemsTextView.text = logbookActivity.getString(R.string.items, climbsList.size)
 
         // When grade card has been selected, expand to show all climbs of that grade
         if (isExpanded) {
-            holder.subItems.removeAllViews()
-            for (climb in climbsList) {
-                val climbCard = ClimbCardView(logbookActivity, climb)
-                climbCard.setOnLongClickListener {
-                    MyDeleteDialog(climb).show(fragmentManager, null)
-                    true
-                }
-                holder.subItems.addView(climbCard)
-            }
-            holder.subItems.visibility = View.VISIBLE
+            expandHolder(holder, position, climbsList)
         } else {
             holder.subItems.visibility = View.GONE
             holder.subItems.removeAllViews()
@@ -76,5 +69,26 @@ class ClimbsAdapter(private val gradesList: List<Int>, private val logbookActivi
         holder.gradeTextView.text = gradesList[position].toString()
     }
 
+    /**
+     * Display all the climbs belonging to the given grade card (holder)
+     */
+    fun expandHolder(holder: ClimbViewHolder, position: Int, provisionalClimbsList: List<Climb>? = null) {
+        val climbsList = if (provisionalClimbsList == null) {
+            val grade = gradesList[position]
+            Model.climbs.getOrDefault(grade, mutableListOf())
+        } else {
+            provisionalClimbsList
+        }
 
+        holder.subItems.removeAllViews()
+        for (climb in climbsList) {
+            val climbCard = ClimbCardView(logbookActivity, climb)
+            climbCard.setOnLongClickListener {
+                MyDeleteDialog(climb).show(fragmentManager, null)
+                true
+            }
+            holder.subItems.addView(climbCard)
+        }
+        holder.subItems.visibility = View.VISIBLE
+    }
 }

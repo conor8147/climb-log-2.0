@@ -3,6 +3,7 @@ package com.coneill.climbit.view.activities
 import android.content.res.TypedArray
 import android.graphics.drawable.InsetDrawable
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -11,14 +12,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.coneill.climbit.view.fragments.AddClimbDialog
 import com.coneill.climbit.view.fragments.FilterClimbDialog
 import com.coneill.climbit.controller.ClimbsAdapter
+import com.coneill.climbit.model.BaseClimb
 import com.coneill.climbit.model.Climb
 import com.coneill.climbit.model.Model
 import com.coneill.climbit.view.fragments.MyDeleteDialog
+import com.coneill.climbit.view.fragments.SearchDialog
 import com.coneill.climbit.view.views.ActionBarView
 import com.example.climbit.R
+import java.util.*
 
 
-class LogbookActivity : AppCompatActivity(), AddClimbDialog.OnClimbAddedListener, FilterClimbDialog.OnFiltersEnabledListener, MyDeleteDialog.OnDeleteListener {
+class LogbookActivity : AppCompatActivity(), AddClimbDialog.OnClimbAddedListener,
+    FilterClimbDialog.OnFiltersEnabledListener,
+    MyDeleteDialog.OnDeleteListener,
+    SearchDialog.OnSearchListener{
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewManager: LinearLayoutManager
@@ -87,6 +94,10 @@ class LogbookActivity : AppCompatActivity(), AddClimbDialog.OnClimbAddedListener
         actionBarView.filterButton.setOnClickListener {
             FilterClimbDialog.newInstance(this).show(fragmentManager, null)
         }
+
+        actionBarView.searchButton.setOnClickListener {
+            SearchDialog().show(fragmentManager, "search dialog")
+        }
     }
 
     /**
@@ -129,9 +140,24 @@ class LogbookActivity : AppCompatActivity(), AddClimbDialog.OnClimbAddedListener
         }
     }
 
-    override fun onDelete(climb: Climb) {
+    override fun onDelete(baseClimb: BaseClimb) {
+        val climb: Climb = baseClimb as Climb
         Model.climbs[climb.grade]?.remove(climb) != null
         viewAdapter.notifyDataSetChanged()
         Toast.makeText(this, "${climb.name} deleted.", Toast.LENGTH_LONG).show()
+    }
+
+    /**
+     * Search for the first occurrence of a climb that starts with the given query.
+     * Case-insensitive
+     */
+    override fun onSearch(climbName: String) {
+        val climb: Climb = Model.climbs.values.flatten().find {
+            climbName.toLowerCase(Locale.ROOT).startsWith(it.name.toLowerCase(Locale.ROOT))
+        } ?: return
+
+        val position = Model.climbs.keys.indexOf(climb.grade)
+        recyclerView.scrollToPosition(position)
+
     }
 }
