@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.coneill.climbit.controller.doShortVibrate
 import com.coneill.climbit.model.*
 import com.example.climbit.R
 
@@ -121,6 +122,7 @@ class HomeActivity : AppCompatActivity(), OnChartValueSelectedListener {
      */
     override fun onValueSelected(e: Entry?, h: Highlight?) {
         val entry = e as PieEntry?
+        doShortVibrate(this)
         graph.centerText = "${getString(R.string.climbs)}\n" +
                 when (entry?.label) {
                     Climb.REDPOINT -> getString(R.string.redpointed) + ":\n$numRedpoints"

@@ -48,11 +48,11 @@ class ProjectsAdapter(private val dataset: MutableList<Project>, private val pro
         holder.grade.text = project.grade.toString()
         holder.crag.text = project.crag
         val fragmentManager = projectsActivity.supportFragmentManager
-        holder.view.setOnLongClickListener {
-            holder.view.startAnimation(AnimationUtils.loadAnimation(projectsActivity, R.anim.shake))
+        holder.view.setOnLongClickListener {            holder.view.startAnimation(AnimationUtils.loadAnimation(projectsActivity, R.anim.shake))
             doShortVibrate(projectsActivity)
             MyDeleteDialog(project).show(fragmentManager, null)
             true
+
         }
     }
 
