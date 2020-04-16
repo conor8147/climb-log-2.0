@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Escálalo</string>
+    <string name="crag">Risco…</string>
+    <string name="default_project_text">Rubble</string>
+    <string name="delete_capitalised">ELIMINAR</string>
+    <string name="done">Hecho</string>
+    <string name="filter">Filtrar</string>
+    <string name="add_climb">Agregar</string>
+    <string name="add_project">Agregar</string>
+    <string name="flashed">Brilló</string>
+    <string name="grade">Grado…</string>
+    <string name="logbook">Cuaderno</string>
+    <string name="name">Nombre…</string>
+    <string name="num_climbs">%d rutas</string>
+    <string name="one_climb">1 ruta</string>
+    <string name="onsighted">No visto</string>
+    <string name="projects_title">Proyectos</string>
+    <string name="redpointed">Enrojecido</string>
+    <string name="total_score">Puntaje Total:</string>
+    <string name="date_climbed">Fecha Subió…</string>
+    <string name="flash">Destello</string>
+    <string name="onsight">A la Vista</string>
+    <string name="redpoint">Punto Rojo</string>
+    <string name="stars">Estrellas…</string>
+    <string name="style">Estilo…</string>
+    <string name="climb_styles">Estilos de Escalada</string>
+    <string name="climbs">Escaladas</string>
+</resources>

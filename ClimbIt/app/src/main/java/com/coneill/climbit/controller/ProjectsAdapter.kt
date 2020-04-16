@@ -1,16 +1,22 @@
 package com.coneill.climbit.controller
 
+import android.content.Context
+import android.os.Build
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.TextView
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.recyclerview.widget.RecyclerView
 import com.coneill.climbit.model.Project
 import com.coneill.climbit.view.activities.ProjectsActivity
 import com.coneill.climbit.view.fragments.MyDeleteDialog
-import com.coneill.climbit.view.views.ClimbCardView
 import com.example.climbit.R
 import kotlinx.android.synthetic.main.view_project_card.view.*
+
 
 class ProjectsAdapter(private val dataset: MutableList<Project>, private val projectsActivity: ProjectsActivity):
     RecyclerView.Adapter<ProjectsAdapter.ProjectCardViewHolder>() {
@@ -43,6 +49,8 @@ class ProjectsAdapter(private val dataset: MutableList<Project>, private val pro
         holder.crag.text = project.crag
         val fragmentManager = projectsActivity.supportFragmentManager
         holder.view.setOnLongClickListener {
+            holder.view.startAnimation(AnimationUtils.loadAnimation(projectsActivity, R.anim.shake))
+            doShortVibrate(projectsActivity)
             MyDeleteDialog(project).show(fragmentManager, null)
             true
         }

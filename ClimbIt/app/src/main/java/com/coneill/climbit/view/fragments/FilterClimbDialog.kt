@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Switch
 import androidx.fragment.app.DialogFragment
@@ -48,29 +49,30 @@ class FilterClimbDialog: DialogFragment() {
         starsSwitch = v.findViewById(R.id.starsSwitch)
 
         cragSwitch.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
+            if (isChecked && cragEditText.text.isNotEmpty()) {
                 listener?.onSwitchEnabled(CRAG, cragEditText.text.toString())
-            } else {
+            } else if (!isChecked) {
                 listener?.onSwitchDisabled(CRAG)
             }
         }
 
         styleSwitch.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
+            if (isChecked && styleEditText.text.isNotEmpty()) {
                 listener?.onSwitchEnabled(STYLE, styleEditText.text.toString())
-            } else {
+            } else if (!isChecked) {
                 listener?.onSwitchDisabled(STYLE)
             }
         }
 
         starsSwitch.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
+            if (isChecked && starsEditText.text.isNotEmpty()) {
                 listener?.onSwitchEnabled(STARS, starsEditText.text.toString())
-            } else {
+            } else if (!isChecked) {
                 listener?.onSwitchDisabled(STARS)
             }
         }
 
+        // Turns switches on and fill in edit texts for filters that are currently applies
         if (parent?.starFilter != null) {
             starsSwitch.isChecked = true
             starsEditText.setText(parent?.starFilter!!.toString())
@@ -82,6 +84,10 @@ class FilterClimbDialog: DialogFragment() {
         if (parent?.styleFilter != null) {
             styleSwitch.isChecked = true
             styleEditText.setText(parent?.styleFilter)
+        }
+
+        v.findViewById<Button>(R.id.doneButton).setOnClickListener {
+            dismiss()
         }
     }
 

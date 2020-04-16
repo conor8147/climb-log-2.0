@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundWhite"
-    tools:context="com.coneill.climbit.view.activities.ProjectsActivity">
+    tools:context="com.coneill.climbit.view.activities.LogbookActivity">
 
     <View
         android:id="@+id/background_blue"
@@ -17,21 +17,32 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/title_text_view"
+        android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:text="@string/projects_title"
+        android:layout_marginTop="16dp"
+        android:text="@string/logbook"
         android:textAppearance="@style/headerText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/background_blue"
-        app:layout_constraintTop_toTopOf="@+id/background_blue" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <view
+        android:id="@+id/actionBarView"
+        class="com.coneill.climbit.view.views.ActionBarView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
 
     <fragment
-        android:id="@+id/bottomNavFragment"
+        android:id="@+id/bottomNav"
         android:name="com.coneill.climbit.view.fragments.BottomNavFragment"
         android:layout_width="match_parent"
         android:layout_height="75dp"
+        android:elevation="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -40,24 +51,14 @@
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="30dp"
-        android:clipToPadding="false"
-        android:paddingTop="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavFragment"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="1dp"
+        android:background="@drawable/white_top_half_rounded_rectangle"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/actionBarView" />
 
-    <view
-        android:id="@+id/actionBarView"
-        class="com.coneill.climbit.view.views.ActionBarView"
-        android:layout_width="match_parent"
-        android:layout_height="32dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_text_view" />
 </androidx.constraintlayout.widget.ConstraintLayout>

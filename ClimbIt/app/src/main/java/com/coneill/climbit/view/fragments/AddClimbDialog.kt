@@ -2,6 +2,7 @@ package com.coneill.climbit.view.fragments
 
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -15,6 +16,7 @@ import androidx.fragment.app.DialogFragment
 import com.coneill.climbit.model.Climb
 import com.coneill.climbit.model.Model
 import com.example.climbit.R
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -25,12 +27,12 @@ import java.util.*
 class AddClimbDialog: DialogFragment() {
 
     private var listener: OnClimbAddedListener? = null
-    lateinit var nameEditText: EditText
-    lateinit var cragEditText: EditText
+    private lateinit var nameEditText: EditText
+    private lateinit var cragEditText: EditText
     lateinit var dateEditText: EditText
-    lateinit var gradeEditText: EditText
-    lateinit var styleSpinner: Spinner
-    lateinit var starsRatingBar: RatingBar
+    private lateinit var gradeEditText: EditText
+    private lateinit var styleSpinner: Spinner
+    private lateinit var starsRatingBar: RatingBar
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,12 +56,19 @@ class AddClimbDialog: DialogFragment() {
         gradeEditText = layout.findViewById(R.id.gradeEditText)
         styleSpinner = layout.findViewById(R.id.styleSpinner)
         starsRatingBar = layout.findViewById(R.id.ratingBar)
+        val shareButton: ImageButton = layout.findViewById(R.id.shareButton)
 
+        val simpleDateFormat = SimpleDateFormat.getDateInstance()
+        dateEditText.setText(simpleDateFormat.format(Date()))
 
         ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_item,
-            Climb.ascentTypes
+            listOf(
+                getString(R.string.redpoint),
+                getString(R.string.flash),
+                getString(R.string.onsight)
+            )
         ).also { adapter ->
             // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -67,6 +76,18 @@ class AddClimbDialog: DialogFragment() {
             styleSpinner.adapter = adapter
         }
 
+        shareButton.setOnClickListener {
+            val climbName = nameEditText.text.toString()
+
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, "Guess what! I just climbed ${climbName}!")
+                type = "text/plain"
+            }
+
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            startActivity(shareIntent)
+        }
     }
 
     private fun addClimb() {
@@ -74,7 +95,11 @@ class AddClimbDialog: DialogFragment() {
 
         Model.addClimb(
             nameEditText.text.toString(),
-            styleSpinner.selectedItem.toString(),
+            when (styleSpinner.selectedItem.toString()) {
+                getString(R.string.redpoint) -> Climb.REDPOINT
+                getString(R.string.flash) -> Climb.FLASH
+                else -> Climb.ONSIGHT
+            },
             gradeEditText.text.toString().toInt(),
             cragEditText.text.toString(),
             starsRatingBar.rating.toInt(),

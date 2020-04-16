@@ -18,11 +18,11 @@ class FilterProjectDialog(val parent: ProjectsActivity): DialogFragment() {
 
     private var listener: OnFiltersEnabledListener? = null
 
-    lateinit var cragEditText: EditText
-    lateinit var gradeEditText: EditText
+    private lateinit var cragEditText: EditText
+    private lateinit var gradeEditText: EditText
 
-    lateinit var cragSwitch: Switch
-    lateinit var gradeSwitch: Switch
+    private lateinit var cragSwitch: Switch
+    private lateinit var gradeSwitch: Switch
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -1,5 +1,6 @@
 package com.coneill.climbit.view.activities
 
+import android.os.AsyncTask
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -74,8 +75,7 @@ class ProjectsActivity : AppCompatActivity(),
      */
     override fun onProjectAdded() {
         Toast.makeText(this, "Project Added!", Toast.LENGTH_LONG).show()
-        resetDataset()
-        projectsAdapter.notifyDataSetChanged()
+        updateDataset()
     }
 
     /**
@@ -84,7 +84,7 @@ class ProjectsActivity : AppCompatActivity(),
     override fun onDelete(baseClimb: BaseClimb) {
         val project = baseClimb as Project
         Model.projects.remove(project)
-        this.projectsAdapter.notifyDataSetChanged()
+        updateDataset()
     }
 
     /**
@@ -110,8 +110,7 @@ class ProjectsActivity : AppCompatActivity(),
                 gradeFilter = filterContent
             }
         }
-        resetDataset()
-        applyFilters()
+        updateDataset()
     }
 
     /**
@@ -126,32 +125,62 @@ class ProjectsActivity : AppCompatActivity(),
                 gradeFilter = null
             }
         }
-        resetDataset()
-        applyFilters()
+        updateDataset()
     }
 
-    /**
-     * Re-synchronise dataset with Model.projects
-     */
-    fun resetDataset() {
+    private fun updateDataset() {
+        UpdateDatasetTask(this).execute(gradeFilter, cragFilter)
+    }
+
+    fun replaceDatasetWith(newDataset: MutableList<Project>) {
         dataset.removeAll { true }
-        for (project in Model.projects) {
+        for (project in newDataset) {
             dataset.add(project)
         }
+        projectsAdapter.notifyDataSetChanged()
     }
 
-    /**
-     * Apply gradefilter and cragFilter to dataset in place.
-     */
-    fun applyFilters() {
-        if (cragFilter != null) {
-            dataset.retainAll { it.crag.toLowerCase(Locale.ROOT) == cragFilter?.toLowerCase(Locale.ROOT) }
-        }
-        if (gradeFilter != null) {
-            dataset.retainAll {
-                it.grade == gradeFilter?.toInt()
+    companion object {
+        /**
+         * Async function to retrieve the filtered set of projects from the model. Upon completion replaces dataset
+         * In ProjectsActivity with the filtered dataset
+         */
+        private class UpdateDatasetTask internal constructor(val context: ProjectsActivity):
+            AsyncTask<String?, String, MutableList<Project>>() {
+
+            /**
+             * @param params: gradeFilter: String, cragFilter: String
+             */
+            override fun doInBackground(vararg params: String?): MutableList<Project> {
+                val dataset = Model.projects.toMutableList()
+                val gradeFilter = params[0]
+                val cragFilter = params[1]
+                return filterDataset(dataset, cragFilter, gradeFilter)
             }
+
+            private fun filterDataset(
+                dataset: MutableList<Project>,
+                cragFilter: String?,
+                gradeFilter: String?
+            ): MutableList<Project> {
+                cragFilter?.let { filter ->
+                    dataset.retainAll {
+                        it.crag.toLowerCase(Locale.ROOT) == filter.toLowerCase(
+                            Locale.ROOT
+                        )
+                    }
+                }
+                gradeFilter?.let { filter ->
+                    dataset.retainAll { it.grade == filter.toInt() }
+                }
+                return dataset
+            }
+
+            override fun onPostExecute(result: MutableList<Project>?) {
+                super.onPostExecute(result)
+                result?.let { context.replaceDatasetWith(it) }
+            }
+
         }
-        projectsAdapter.notifyDataSetChanged()
     }
 }

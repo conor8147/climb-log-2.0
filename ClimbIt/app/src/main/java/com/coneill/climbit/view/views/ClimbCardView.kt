@@ -1,7 +1,6 @@
 package com.coneill.climbit.view.views
 
 import android.content.Context
-import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,6 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.coneill.climbit.model.Climb
-import com.coneill.climbit.view.fragments.MyDeleteDialog
 import com.example.climbit.R
 import kotlinx.android.synthetic.main.view_climb_card.view.*
 

@@ -8,26 +8,20 @@ import java.time.LocalDate
 object Model {
     // Mutable list of projects on the users project board.
     val projects = mutableListOf(
+        // TODO: remove test data
         Project("Moonshine", 23, "Mangaokewa"),
-        Project("Rubble", 27, "The Cave"),
-        Project("Liposuction", 23, "Britten Crag"),
-        Project("Moonshine", 23, "Mangaokewa"),
-        Project("Rubble", 27, "The Cave"),
-        Project("Liposuction", 23, "Britten Crag"),
-        Project("Moonshine", 23, "Mangaokewa"),
-        Project("Rubble", 27, "The Cave"),
-        Project("Liposuction", 23, "Britten Crag"),
-        Project("Moonshine", 23, "Mangaokewa"),
-        Project("Rubble", 27, "The Cave"),
-        Project("Liposuction", 23, "Britten Crag"),
-        Project("Moonshine", 23, "Mangaokewa"),
-        Project("Rubble", 27, "The Cave"),
-        Project("Liposuction", 23, "Britten Crag"),
-        Project("Lunge Starter", 24, "Hospital Flat")
+        Project("Rubble", 26, "The Cave"),
+        Project("Barrabas", 25, "Mangaokewa"),
+        Project("Bogus Machismo", 29, "The Cave"),
+        Project("Protoplasm", 23, "Hanging Rock"),
+        Project("Groove Train", 33, "The Grampians"),
+        Project("Biographie", 36, "Cëuse"),
+        Project("Bizarete", 22, "Whanganui Bay")
     )
 
     // Mutable map of grades to climbs for the user's logbook
     val climbs = mutableMapOf(
+        // TODO: remove test data
         Pair(21, mutableListOf(
             Climb("Uhaul", 21, "Britten Crags", "Onsight", 1)
         )),
@@ -35,7 +29,7 @@ object Model {
             Climb("Storming the Gates of Troy", 22, "Mangaokewa", "Onsight", 2)
         )),
         Pair(23, mutableListOf(
-            Climb(name="Moonshine", grade=23, crag="Mangaokewa", stars=1, style="Redpoint"),
+            Climb(name="Moonshine", grade=23, crag="Mangaokewa", stars=1, style="Flash"),
             Climb(name="Liposuction", grade=23, crag="Britten Crag", stars=3, style="Redpoint")
         )),
         Pair(24, mutableListOf(
@@ -46,7 +40,7 @@ object Model {
         ))
     )
 
-    val grades: MutableList<Int> = climbs.keys.toMutableList()
+    private val grades: MutableList<Int> = climbs.keys.toMutableList()
 
     /**
      * Add new project to the top of the projectsList

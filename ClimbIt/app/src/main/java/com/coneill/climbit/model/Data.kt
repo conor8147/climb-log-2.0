@@ -35,7 +35,7 @@ class Climb(
     val crag: String,
     val style: String,
     val stars: Int = 0,
-    val date: LocalDate? = null
+    private val date: LocalDate? = null
 ) : BaseClimb {
     companion object {
         const val REDPOINT = "Redpoint"

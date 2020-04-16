@@ -5,4 +5,8 @@
     <color name="colorAccent">#F76800</color>
     <color name="backgroundWhite">#EEF0F3</color>
     <color name="blueGreyText">#2C3862</color>
+    <color name="redpoint">#F44336</color>
+    <color name="flash">#DBD4D4</color>
+    <color name="onsight">#3A41D0</color>
+    <color name="stroke_colour">#333333</color>
 </resources>
